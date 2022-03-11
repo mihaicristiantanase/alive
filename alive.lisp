@@ -167,7 +167,11 @@
       (sleep *sleep*))))
 
 ; call once (setup)
-; then, as many times as you like, (draw-loop)
+;
+; then, as many times as you like:
+; (ql:quickload "bordeaux-threads")
+; (bordeaux-threads:make-thread #'draw-loop :name "alive")
+; a separate thread is needed to allow "live" editing
 
 (dotimes (i 100)
   (push (make-instance 'connectr
