@@ -129,6 +129,7 @@
   *animate*)
 
 (defun draw-scene ()
+  ; TODO(mihai): compose function name and eval it
   (ecase *scene*
     ('disco (draw-scene-disco))
     ('2d-plot (draw-scene-2d-plot))))
