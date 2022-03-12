@@ -3,12 +3,23 @@
 ; examples:
 ; ~/quicklisp/dists/quicklisp/software/cl-cairo2-20160531-git/tutorial/cairo-samples.lisp
 
+(defun canvas-get (var canvas)
+  (cdr (assoc var canvas)))
+
 (defparameter *scenes* '(disco 2d-plot))
 (defparameter *scene* (nth 1 *scenes*))
 (defparameter *animate* t)
 (defparameter *sleep* 0.5)
 (defparameter *line-alpha* 1.0)
 (defparameter *objects* nil)
+(defparameter *2d-plot-point-size* 1)
+(defparameter *2d-plot-f*
+  #'(lambda (x y canvas)
+      (let ((w (canvas-get 'w canvas))
+            (h (canvas-get 'h canvas)))
+        (values (/ x w)
+                (/ y h)
+                (+ x y (+ w h))))))
 
 (defun rand-interval (left right)
   (+ (random (1+ (- right left))) left))
@@ -151,8 +162,14 @@
 (defun draw-scene-2d-plot ()
   (cairo:set-source-rgb 0.3 0.3 0.3)
   (cairo:paint)
-  ; TODO
-  )
+  (let ((w (cairo:width cairo:*context*))
+        (h (cairo:height cairo:*context*)))
+    (loop for x from 0 upto w by *2d-plot-point-size* do
+      (loop for y from 0 upto h by *2d-plot-point-size* do
+        (multiple-value-bind (r g b) (funcall *2d-plot-f* x y (list (cons 'w w) (cons 'h h)))
+          (cairo:set-source-rgb r g b)
+          (cairo:rectangle x y *2d-plot-point-size* *2d-plot-point-size*)
+          (cairo:fill-path))))))
 
 (defun update ()
   (dolist (o *objects*)
