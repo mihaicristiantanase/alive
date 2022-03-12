@@ -3,6 +3,8 @@
 ; examples:
 ; ~/quicklisp/dists/quicklisp/software/cl-cairo2-20160531-git/tutorial/cairo-samples.lisp
 
+(defparameter *scenes* '(disco 2d-plot))
+(defparameter *scene* (nth 1 *scenes*))
 (defparameter *animate* t)
 (defparameter *sleep* 0.5)
 (defparameter *line-alpha* 1.0)
@@ -126,7 +128,12 @@
 (defun continue? ()
   *animate*)
 
-(defun draw-bg ()
+(defun draw-scene ()
+  (ecase *scene*
+    ('disco (draw-scene-disco))
+    ('2d-plot (draw-scene-2d-plot))))
+
+(defun draw-bg-disco ()
   (cairo:set-source-rgb 0 0 0)
   (cairo:paint)
   (let ((w_ (cairo:width cairo:*context*))
@@ -135,9 +142,16 @@
   (cairo:set-source-rgba 0 0 0 0.5)
   (cairo:paint))
 
-(defun draw-scene ()
+(defun draw-scene-disco ()
+  (draw-bg-disco)
   (dolist (o *objects*)
     (draw-object o)))
+
+(defun draw-scene-2d-plot ()
+  (cairo:set-source-rgb 0.3 0.3 0.3)
+  (cairo:paint)
+  ; TODO
+  )
 
 (defun update ()
   (dolist (o *objects*)
@@ -158,7 +172,6 @@
           (cairo:create-image-surface :rgb24 700 360)))
     (loop do
       (let ((cairo:*context* (cairo:create-context img-surface)))
-        (draw-bg)
         (draw-scene)
         (update))
       (draw-img-from-surface img-surface)
