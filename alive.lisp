@@ -197,11 +197,12 @@
         (break))
       (sleep *sleep*))))
 
+(defun draw-loop-async ()
+  (bordeaux-threads:make-thread #'draw-loop :name "alive"))
+
 ; call once (setup)
 ;
-; then, as many times as you like:
-; (ql:quickload "bordeaux-threads")
-; (bordeaux-threads:make-thread #'draw-loop :name "alive")
+; then, as many times as you like: (draw-loop) or (draw-loop-async)
 ; a separate thread is needed to allow "live" editing
 
 (dotimes (i 100)

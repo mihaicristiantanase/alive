@@ -6,7 +6,7 @@
   :license  "MIT"
   :version "0.0.1"
   :serial t
-  :depends-on (#:cl-cairo2 #:cl-cairo2-xlib)
+  :depends-on (#:cl-cairo2 #:cl-cairo2-xlib #:bordeaux-threads)
   :components ((:file "package")
                (:file "pos")
                (:file "object")
