@@ -184,6 +184,7 @@
           (cairo:create-image-surface :rgb24 700 360)))
     (loop do
       (let ((cairo:*context* (cairo:create-context img-surface)))
+        ; TODO(mihai): handle tearing effect due to drawing in a separate thread
         (draw-scene)
         (update))
       (draw-img-from-surface img-surface)
