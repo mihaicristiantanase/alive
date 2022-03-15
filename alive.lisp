@@ -13,13 +13,7 @@
 (defparameter *line-alpha* 1.0)
 (defparameter *objects* nil)
 (defparameter *2d-plot-point-size* 1)
-(defparameter *2d-plot-f*
-  #'(lambda (x y canvas)
-      (let ((w (canvas-get 'w canvas))
-            (h (canvas-get 'h canvas)))
-        (values (/ x w)
-                (/ y h)
-                (+ x y (+ w h))))))
+(defparameter *2d-plot-f* *2dp-osciallations*)
 
 (defun rand-interval (left right)
   (+ (random (1+ (- right left))) left))

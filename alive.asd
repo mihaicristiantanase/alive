@@ -10,4 +10,5 @@
   :components ((:file "package")
                (:file "pos")
                (:file "object")
+               (:file "2d-plots")
                (:file "alive")))
