@@ -110,9 +110,6 @@
      
       (cairo:stroke)))))
 
-(cairo:with-png-file ("/tmp/a.png" :RGB24 500 400)
-  (draw-hipnotic-gradients cairo:*context*))
-
 (defun draw-rect (pos w h r g b)
   (cairo:set-source-rgba r g b 0.7)
   (cairo:rectangle (x pos) (y pos) w h)
@@ -190,8 +187,7 @@
 (defun draw-loop ()
   (init)
 
-  (let ((img-surface 
-          (cairo:create-image-surface :rgb24 700 360)))
+  (let ((img-surface (cairo:create-image-surface :rgb24 700 360)))
     (loop do
       (let ((cairo:*context* (cairo:create-context img-surface)))
         ; TODO(mihai): handle tearing effect due to drawing in a separate thread
