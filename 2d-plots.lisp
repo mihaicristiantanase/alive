@@ -29,3 +29,17 @@
           (values (sin (* (- (* x-unit 2) 1) *osciallation-factor*))
                   (cos (* (- (* y-unit 2) 1) *osciallation-factor*))
                   1))))
+
+(defparameter *2dp-smooth*
+  #'(lambda (x y canvas)
+      (with-canvas x y canvas
+        (values x-unit
+                y-unit
+                (+ (* x-unit x-unit) (* y-unit y-unit))))))
+
+(defparameter *2dp-electric-arcs*
+  #'(lambda (x y canvas)
+      (with-canvas x y canvas
+        (values (/ (1+ (sin (* (* x-unit y-unit) *osciallation-factor*))) 2)
+                (/ (1+ (sin (* (* x-unit y-unit) *osciallation-factor*))) 2)
+                (/ (1+ (sin (* (* x-unit y-unit) *osciallation-factor*))) 2)))))

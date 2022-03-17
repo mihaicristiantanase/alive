@@ -13,7 +13,7 @@
 (defparameter *line-alpha* 1.0)
 (defparameter *objects* nil)
 (defparameter *2d-plot-point-size* 1)
-(defparameter *2d-plot-f* *2dp-osciallations*)
+(defparameter *2d-plot-f* *2dp-electric-arcs*)
 (defparameter *save-frames* nil)
 (defparameter *img-idx* 0)
 
