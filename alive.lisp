@@ -111,14 +111,6 @@
 (cairo:with-png-file ("/tmp/a.png" :RGB24 500 400)
   (draw-hipnotic-gradients cairo:*context*))
 
-(defun draw-in-x11 ()
-  (cairo:with-context ((cairo:create-xlib-image-context 400 400 :window-name "Live Drawing"))
-    (cairo:set-source-rgb 0 1 0)
-    (cairo:paint)
-    (cairo:set-source-rgb 1 1 0)
-    (cairo:paint)
-    (break)))
-
 (defun draw-rect (pos w h r g b)
   (cairo:set-source-rgba r g b 0.7)
   (cairo:rectangle (x pos) (y pos) w h)
