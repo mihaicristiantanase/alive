@@ -29,7 +29,3 @@
           (values (sin (* (- (* x-unit 2) 1) *osciallation-factor*))
                   (cos (* (- (* y-unit 2) 1) *osciallation-factor*))
                   1))))
-
-;(dotimes (i 420)
-;  (setf *osciallation-factor* (/ i 40))
-;  (sleep 0.2))
