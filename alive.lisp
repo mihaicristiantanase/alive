@@ -14,6 +14,8 @@
 (defparameter *objects* nil)
 (defparameter *2d-plot-point-size* 1)
 (defparameter *2d-plot-f* *2dp-osciallations*)
+(defparameter *save-frames* nil)
+(defparameter *img-idx* 0)
 
 (defun rand-interval (left right)
   (+ (random (1+ (- right left))) left))
@@ -128,8 +130,8 @@
 (defun draw-scene ()
   ; TODO(mihai): compose function name and eval it
   (ecase *scene*
-    ('disco (draw-scene-disco))
-    ('2d-plot (draw-scene-2d-plot))))
+    (disco (draw-scene-disco))
+    (2d-plot (draw-scene-2d-plot))))
 
 (defun draw-bg-disco ()
   (cairo:set-source-rgb 0 0 0)
@@ -158,6 +160,8 @@
           (cairo:fill-path))))))
 
 (defun update ()
+  (setf *osciallation-factor* (+ *osciallation-factor* 0.1))
+
   (dolist (o *objects*)
     (adjust-pos (o-pos o) 'randomly)))
 
@@ -165,13 +169,27 @@
   (cairo:set-source-surface surface 0 0)
   (cairo:paint))
 
+(defun save-img-from-surface (surface)
+  (cairo:with-png-file ((format nil "/tmp/gif/frame-~a.png" *img-idx*)
+                        :RGB24
+                        (cairo:width surface)
+                        (cairo:height surface))
+    (cairo:set-source-surface surface 0 0)
+    (cairo:paint))
+  (incf *img-idx*))
+
 (defun setup ()
   (setf cairo:*context*
         (cairo:create-xlib-image-context 700 360
                                          :window-name "Live Drawing"
                                          :background-color cl-colors:+black+)))
 
+(defun init ()
+  (setf *img-idx* 0))
+
 (defun draw-loop ()
+  (init)
+
   (let ((img-surface 
           (cairo:create-image-surface :rgb24 700 360)))
     (loop do
@@ -180,6 +198,8 @@
         (draw-scene)
         (update))
       (draw-img-from-surface img-surface)
+      (when *save-frames*
+        (save-img-from-surface img-surface))
       (unless (continue?)
         (break))
       (sleep *sleep*))))
