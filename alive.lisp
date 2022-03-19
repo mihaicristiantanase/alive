@@ -182,7 +182,8 @@
                                          :background-color cl-colors:+black+)))
 
 (defun init ()
-  (setf *img-idx* 0))
+  (setf *img-idx* 0)
+  (setf *osciallation-factor* 0))
 
 (defun draw-loop ()
   (init)
