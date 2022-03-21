@@ -13,7 +13,7 @@
 (defparameter *line-alpha* 1.0)
 (defparameter *objects* nil)
 (defparameter *2d-plot-point-size* 1)
-(defparameter *2d-plot-f* *2dp-electric-arcs*)
+(defparameter *2d-plot-f* *2dp-television*)
 (defparameter *save-frames* nil)
 (defparameter *img-idx* 0)
 
@@ -158,6 +158,7 @@
 
 (defun update ()
   (setf *osciallation-factor* (+ *osciallation-factor* 0.1))
+  (incf *beam-split* 0.01)
 
   (dolist (o *objects*)
     (adjust-pos (o-pos o) 'randomly)))
@@ -183,7 +184,8 @@
 
 (defun init ()
   (setf *img-idx* 0)
-  (setf *osciallation-factor* 0))
+  (setf *osciallation-factor* 0)
+  (setf *beam-split* 2.0))
 
 (defun draw-loop ()
   (init)
