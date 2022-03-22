@@ -13,7 +13,7 @@
 (defparameter *line-alpha* 1.0)
 (defparameter *objects* nil)
 (defparameter *2d-plot-point-size* 1)
-(defparameter *2d-plot-f* *2dp-television*)
+(defparameter *2d-plot-f* *2dp-sine*)
 (defparameter *save-frames* nil)
 (defparameter *img-idx* 0)
 
@@ -159,6 +159,8 @@
 (defun update ()
   (setf *osciallation-factor* (+ *osciallation-factor* 0.1))
   (incf *beam-split* 0.01)
+  (incf *holes-factor* 0.02)
+  (incf *sin-wave* 0.1)
 
   (dolist (o *objects*)
     (adjust-pos (o-pos o) 'randomly)))
@@ -185,7 +187,9 @@
 (defun init ()
   (setf *img-idx* 0)
   (setf *osciallation-factor* 0)
-  (setf *beam-split* 2.0))
+  (setf *beam-split* 2.0)
+  (setf *holes-factor* 0.001)
+  (setf *sin-wave* 0.0))
 
 (defun draw-loop ()
   (init)

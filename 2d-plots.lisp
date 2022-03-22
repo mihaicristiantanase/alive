@@ -66,6 +66,8 @@
                   (if (< _x 1.0) _x (- 2 _x))
                   (if (< _x 1.0) _x (- 2 _x)))))))
 
+(defparameter *beam-split* 2.0)
+
 (defparameter *2dp-double-beams*
   #'(lambda (x y canvas)
       (with-canvas x y canvas
@@ -74,3 +76,36 @@
           (values (if (< _x 1.0) _x (- 2 _x))
                   (if (< _y 1.0) _y (- 2 _y))
                   0.3)))))
+
+(defparameter *2dp-television*
+  #'(lambda (x y canvas)
+      (with-canvas x y canvas
+        (let* ((_x (* *beam-split* x-unit))
+               (_y (* *beam-split* y-unit))
+               (_xf (floor _x))
+               (_yf (floor _y)))
+          (values (if (= (mod _xf 2) 0.0) (- _x _xf) (1- (- _x _xf)))
+                  (if (= (mod _yf 2) 0.0) (- _y _yf) (1- (- _y _yf)))
+                  0.3)))))
+
+(defparameter *holes-factor* 0.0)
+
+(defparameter *2dp-holes*
+  #'(lambda (x y canvas)
+      (with-canvas x y canvas
+        (let* ((xs (sin (* 12.6 x-unit)))
+               (ys (sin (* 12.6 y-unit))))
+          (values (- 1 (/ (abs (* xs ys)) *holes-factor*))
+                  (- 1 (/ (abs (* xs ys)) *holes-factor*))
+                  (- 1 (/ (abs (* xs ys)) *holes-factor*)))))))
+
+(defparameter *sin-wave* 0.0)
+
+(defparameter *2dp-sine*
+  #'(lambda (x y canvas)
+      (with-canvas x y canvas
+        (let* ((xs (+ *sin-wave* (* 20 x-unit)))
+               (ys (- 3 (* 6 y-unit))))
+          (values (abs (- (abs (- (sin xs) ys)) 1.4))
+                  x-unit
+                  y-unit)))))
