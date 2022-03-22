@@ -1,11 +1,16 @@
 (in-package #:alive)
 
-(defmacro with-canvas (x y canvas &body body)
-  `(let* ((w (canvas-get 'w canvas))
-          (h (canvas-get 'h canvas))
-          (x-unit (/ x w))
-          (y-unit (/ y h)))
+(defmacro with-canvas (x y canvas (&key (xscale 6) (yscale 40)) &rest body)
+  `(let* ((w (canvas-get 'w ,canvas))
+          (h (canvas-get 'h ,canvas))
+          (x-unit (/ ,x w))
+          (y-unit (/ ,y h))
+          (xs (* ,xscale (1- (* 2 x-unit))))
+          (ys (* ,yscale (- (1- (* 2 y-unit))))))
      ,@body))
+
+(defun 2dp-dist (f x y &optional (delta 8.0))
+  (- (abs (- (funcall f x) y)) delta))
 
 (defparameter *2dp-gradient*
   #'(lambda (x y canvas)
@@ -109,3 +114,37 @@
           (values (abs (- (abs (- (sin xs) ys)) 1.4))
                   x-unit
                   y-unit)))))
+
+(defparameter *2dp-xcube*
+  #'(lambda (x y canvas)
+      (with-canvas x y canvas
+        (let* ((xs (* 5 (1- (* 2 x-unit))))
+               (ys (* 40 (- (1- (* 2 y-unit))))))
+          (values (- (abs (- (expt xs 3) ys)) 20.0)
+                  y-unit
+                  x-unit)))))
+
+(defparameter *2dp-xsquare*
+  #'(lambda (x y canvas)
+      (with-canvas x y canvas
+        (let* ((xs (* 6 (1- (* 2 x-unit))))
+               (ys (* 40 (- (1- (* 2 y-unit))))))
+          (values (- (abs (- (expt xs 2) ys)) 8.0)
+                  y-unit
+                  x-unit)))))
+
+(defparameter *2dp-tans*
+  #'(lambda (x y canvas)
+      (with-canvas x y canvas (:xscale 10 :yscale 30)
+                   (values (2dp-dist #'(lambda (x) (tan x)) xs ys)
+                           (2dp-dist #'(lambda (x) (tan x)) xs ys)
+                           (2dp-dist #'(lambda (x) (tan x)) xs ys)))))
+
+(defparameter *repell-factor* 0.0)
+
+(defparameter *2dp-repel*
+  #'(lambda (x y canvas)
+      (with-canvas x y canvas (:xscale 0.5 :yscale (* 30 (sin *repell-factor*)))
+                   (values (2dp-dist #'(lambda (x) (/ (+ x 0.001))) xs ys)
+                           (- 1 x-unit)
+                           (- 1 y-unit)))))
