@@ -3,9 +3,6 @@
 ; examples:
 ; ~/quicklisp/dists/quicklisp/software/cl-cairo2-20160531-git/tutorial/cairo-samples.lisp
 
-(defun canvas-get (var canvas)
-  (cdr (assoc var canvas)))
-
 (defparameter *scenes* '(disco 2d-plot))
 (defparameter *scene* (nth 1 *scenes*))
 (defparameter *animate* t)
