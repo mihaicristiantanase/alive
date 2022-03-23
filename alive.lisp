@@ -10,7 +10,7 @@
 (defparameter *line-alpha* 1.0)
 (defparameter *objects* nil)
 (defparameter *2d-plot-point-size* 1)
-(defparameter *2d-plot-f* *2dp-repel*)
+(defparameter *2d-plot-f* *2dp-smooth-circle*)
 (defparameter *save-frames* nil)
 (defparameter *img-idx* 0)
 
@@ -159,6 +159,7 @@
   (incf *holes-factor* 0.02)
   (incf *sin-wave* 0.1)
   (incf *repell-factor* 0.01)
+  (incf *ripple-factor* 0.05)
 
   (dolist (o *objects*)
     (adjust-pos (o-pos o) 'randomly)))
@@ -188,7 +189,8 @@
   (setf *beam-split* 2.0)
   (setf *holes-factor* 0.001)
   (setf *sin-wave* 0.0)
-  (setf *repell-factor* 0.0))
+  (setf *repell-factor* 0.0)
+  (setf *ripple-factor* 2.0))
 
 (defun draw-loop ()
   (init)

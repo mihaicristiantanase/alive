@@ -151,3 +151,40 @@
                    (values (2dp-dist #'(lambda (x) (/ (+ x 0.001))) xs ys)
                            (- 1 x-unit)
                            (- 1 y-unit)))))
+
+(defparameter *2dp-circle*
+  #'(lambda (x y canvas)
+      (with-canvas (x y canvas :xscale 30 :yscale 20)
+                   (values (if (<= (abs
+                                    (- (+ (expt xs 2) (expt ys 2))
+                                       (expt *ripple-factor* 2)))
+                                   8.0)
+                               1.0 0.0)
+                           (- 0.5 x-unit)
+                           (- 1.2 y-unit)))))
+
+(defparameter *2dp-simple-circle*
+  #'(lambda (x y canvas)
+      (with-canvas (x y canvas :xscale 20 :yscale 10)
+                   (values (2dp-dist #'(lambda (x)
+                                         (- (+ (expt x 2) (expt ys 2))
+                                            (expt 8.0 2)))
+                                     xs ys 2.0)
+                           (- 1.0 x-unit)
+                           (- 1.0 y-unit)))))
+
+(defparameter *ripple-factor* 2.0)
+
+(defparameter *2dp-ripples*
+  #'(lambda (x y canvas)
+      (with-canvas (x y canvas :xscale 30 :yscale 20)
+                   (values (sin (- (+ (expt xs 2) (expt ys 2)) (expt *ripple-factor* 2)))
+                           (- 0.5 x-unit)
+                           (- 1.2 y-unit)))))
+
+(defparameter *2dp-perspective-ripple*
+  #'(lambda (x y canvas)
+      (with-canvas (x y canvas :xscale 4 :yscale 10)
+                   (values (sin (- (+ (expt xs 2) (expt ys 2)) (expt *ripple-factor* 2)))
+                           (- 0.5 x-unit)
+                           (- 1.2 y-unit)))))
