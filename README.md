@@ -3,9 +3,7 @@
 
 This is a project for drawing in Common Lisp with Cairo (https://www.cairographics.org/download/).
 
-## License
-
-MIT
+## Examples
 
 https://user-images.githubusercontent.com/7289591/159760142-f79cfc02-bf63-4fb8-891d-9319edfbaff2.mp4
 
@@ -28,3 +26,7 @@ https://user-images.githubusercontent.com/7289591/159983124-e0f72d3f-f864-4a10-8
 <img width="690" alt="electric-arcs" src="https://user-images.githubusercontent.com/7289591/159761421-0ec45387-2f30-443c-9463-fa3f464e29d9.png">
 
 <img width="353" alt="gradient" src="https://user-images.githubusercontent.com/7289591/159761427-7f39443c-5d19-426b-8da5-ef8c1b2a619b.png">
+
+## License
+
+MIT
