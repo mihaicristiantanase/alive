@@ -173,6 +173,13 @@
                            (- 1.0 x-unit)
                            (- 1.0 y-unit)))))
 
+(defparameter *2dp-smooth-circle*
+  #'(lambda (x y canvas)
+      (with-canvas (x y canvas :xscale 10 :yscale 5.5)
+                   (values (* 0.4 (abs (- (+ (expt xs 2) (expt ys 2)) (expt 4.0 2))))
+                           (- 0.5 x-unit)
+                           (- 1.2 y-unit)))))
+
 (defparameter *ripple-factor* 2.0)
 
 (defparameter *2dp-ripples*
