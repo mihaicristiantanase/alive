@@ -195,3 +195,13 @@
                    (values (sin (- (+ (expt xs 2) (expt ys 2)) (expt *ripple-factor* 2)))
                            (- 0.5 x-unit)
                            (- 1.2 y-unit)))))
+
+(defparameter *sun-factor* 0.0)
+
+(defparameter *2dp-sun*
+  #'(lambda (x y canvas)
+      (with-canvas (x y canvas)
+                   (let ((r (/ (floor (* 10 (* (* 1.8 x-unit) (- 1 (* *sun-factor* y-unit))))) 10)))
+                     (values r
+                             (* 0.4 r)
+                             (* 0.1 r))))))
