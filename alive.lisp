@@ -154,7 +154,7 @@
           (cairo:fill-path))))))
 
 (defun update ()
-  (setf *osciallation-factor* (+ *osciallation-factor* 0.1))
+  (incf *osciallation-factor* 0.1)
   (incf *beam-split* 0.01)
   (incf *holes-factor* 0.02)
   (incf *sin-wave* 0.1)
