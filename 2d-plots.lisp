@@ -205,3 +205,11 @@
                      (values r
                              (* 0.4 r)
                              (* 0.1 r))))))
+
+(defparameter *2dp-hot-sun*
+  #'(lambda (x y canvas)
+      (with-canvas (x y canvas)
+                   (let ((r (/ (* 8.8 x-unit) (- 1 (* *sun-factor* y-unit)))))
+                     (values r
+                             (* 0.4 r)
+                             (* 0.1 r))))))
