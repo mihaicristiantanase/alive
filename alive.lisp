@@ -6,7 +6,7 @@
 (defparameter *scenes* '(disco 2d-plot))
 (defparameter *scene* (nth 1 *scenes*))
 (defparameter *animate* t)
-(defparameter *sleep* 0.5)
+(defparameter *sleep* 0.1)
 (defparameter *line-alpha* 1.0)
 (defparameter *objects* nil)
 (defparameter *2d-plot-point-size* 1)
