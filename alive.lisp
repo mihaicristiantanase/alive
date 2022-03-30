@@ -11,6 +11,7 @@
 (defparameter *objects* nil)
 (defparameter *2d-plot-point-size* 1)
 (defparameter *2d-plot-f* *2dp-hot-sun*)
+(defparameter *fractal-f* #'mandelbrot-try1)
 (defparameter *save-frames* nil)
 (defparameter *img-idx* 0)
 
@@ -162,8 +163,9 @@
     (loop for x from 0 upto w by *2d-plot-point-size* do
       (loop for y from 0 upto h by *2d-plot-point-size* do
         (multiple-value-bind (r g b)
-            (mandelbrot-try1 (/ (- x (/ w 2)) 30)
-                             (/ (- y (/ h 2)) 30))
+            (funcall *fractal-f*
+                     (/ (- x (/ w 2)) 30)
+                     (/ (- y (/ h 2)) 30))
           (cairo:set-source-rgb r g b)
           (cairo:rectangle x y *2d-plot-point-size* *2d-plot-point-size*)
           (cairo:fill-path))))))
