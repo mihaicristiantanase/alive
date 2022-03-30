@@ -3,8 +3,8 @@
 ; examples:
 ; ~/quicklisp/dists/quicklisp/software/cl-cairo2-20160531-git/tutorial/cairo-samples.lisp
 
-(defparameter *scenes* '(disco 2d-plot))
-(defparameter *scene* (nth 1 *scenes*))
+(defparameter *scenes* '(disco 2d-plot fractals))
+(defparameter *scene* (nth 2 *scenes*))
 (defparameter *animate* t)
 (defparameter *sleep* 0.1)
 (defparameter *line-alpha* 1.0)
@@ -125,7 +125,8 @@
   ; TODO(mihai): compose function name and eval it
   (ecase *scene*
     (disco (draw-scene-disco))
-    (2d-plot (draw-scene-2d-plot))))
+    (2d-plot (draw-scene-2d-plot))
+    (fractals (draw-scene-fractals))))
 
 (defun draw-bg-disco ()
   (cairo:set-source-rgb 0 0 0)
@@ -153,6 +154,20 @@
           (cairo:rectangle x y *2d-plot-point-size* *2d-plot-point-size*)
           (cairo:fill-path))))))
 
+(defun draw-scene-fractals ()
+  (cairo:set-source-rgb 0.2 0.2 0.2)
+  (cairo:paint)
+  (let ((w (cairo:width cairo:*context*))
+        (h (cairo:height cairo:*context*)))
+    (loop for x from 0 upto w by *2d-plot-point-size* do
+      (loop for y from 0 upto h by *2d-plot-point-size* do
+        (multiple-value-bind (r g b)
+            (mandelbrot-try1 (/ (- x (/ w 2)) 30)
+                             (/ (- y (/ h 2)) 30))
+          (cairo:set-source-rgb r g b)
+          (cairo:rectangle x y *2d-plot-point-size* *2d-plot-point-size*)
+          (cairo:fill-path))))))
+
 (defun update ()
   (incf *osciallation-factor* 0.1)
   (incf *beam-split* 0.01)
@@ -161,6 +176,7 @@
   (incf *repell-factor* 0.01)
   (incf *ripple-factor* 0.05)
   (incf *sun-factor* 0.005)
+  (incf *mandelbrot-factor* 0.3)
 
   (dolist (o *objects*)
     (adjust-pos (o-pos o) 'randomly)))
@@ -192,7 +208,8 @@
   (setf *sin-wave* 0.0)
   (setf *repell-factor* 0.0)
   (setf *ripple-factor* 2.0)
-  (setf *sun-factor* 0.0))
+  (setf *sun-factor* 0.0)
+  (setf *mandelbrot-factor* -80))
 
 (defun draw-loop ()
   (init)

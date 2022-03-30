@@ -11,4 +11,5 @@
                (:file "pos")
                (:file "object")
                (:file "2d-plots")
+               (:file "fractals")
                (:file "alive")))
