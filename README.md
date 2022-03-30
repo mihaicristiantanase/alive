@@ -27,6 +27,8 @@ https://user-images.githubusercontent.com/7289591/159983124-e0f72d3f-f864-4a10-8
 
 <img width="353" alt="gradient" src="https://user-images.githubusercontent.com/7289591/159761427-7f39443c-5d19-426b-8da5-ef8c1b2a619b.png">
 
+<img width="697" alt="sun" src="https://user-images.githubusercontent.com/7289591/160762065-9925653a-d263-4f97-8085-f9aada377747.png">
+
 ## License
 
 MIT
