@@ -41,6 +41,10 @@ https://user-images.githubusercontent.com/7289591/160776317-96865f1c-4467-49f2-b
 
 <img width="697" alt="mandelbrot-try3-with-color" src="https://user-images.githubusercontent.com/7289591/160781467-8e9f1f84-bc60-499d-a9cb-c1b993f0cb07.png">
 
+* Mandelbrot try number 4 (with spped)
+* 
+<img width="348" alt="mandelbrot-try4-with-speed" src="https://user-images.githubusercontent.com/7289591/160790516-3d4a02cc-4bd5-4572-818d-9f7122b8725a.png">
+
 ## License
 
 MIT
