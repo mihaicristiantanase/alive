@@ -11,7 +11,7 @@
 (defparameter *objects* nil)
 (defparameter *2d-plot-point-size* 1)
 (defparameter *2d-plot-f* *2dp-hot-sun*)
-(defparameter *fractal-f* #'mandelbrot-try3)
+(defparameter *fractal-f* #'mandelbrot-try4)
 (defparameter *save-frames* nil)
 (defparameter *img-idx* 0)
 

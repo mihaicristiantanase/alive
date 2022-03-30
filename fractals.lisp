@@ -36,3 +36,10 @@
     (values (/ (+ r *max*) *2max*)
             (/ (+ i *max*) *2max*)
             (abs (cos (* 0.3 (/ (+ r *max*) *2max*)))))))
+
+(defun mandelbrot-try4 (x y &key (constant *mandelbrot-factor*) (iterations 10))
+  (multiple-value-bind (r i s)
+      (mandelbrot-try-base x y :constant constant :iterations iterations)
+    (values (* s (/ (+ r *max*) *2max*))
+            (* s (/ (+ i *max*) *2max*))
+            0.0)))
