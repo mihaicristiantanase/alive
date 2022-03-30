@@ -37,6 +37,10 @@ https://user-images.githubusercontent.com/7289591/160776317-96865f1c-4467-49f2-b
 
 <img width="697" alt="sun" src="https://user-images.githubusercontent.com/7289591/160762065-9925653a-d263-4f97-8085-f9aada377747.png">
 
+* Mandelbrot try number 3 (with color)
+* 
+<img width="697" alt="mandelbrot-try3-with-color" src="https://user-images.githubusercontent.com/7289591/160781467-8e9f1f84-bc60-499d-a9cb-c1b993f0cb07.png">
+
 ## License
 
 MIT
