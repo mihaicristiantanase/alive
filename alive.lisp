@@ -3,8 +3,8 @@
 ; examples:
 ; ~/quicklisp/dists/quicklisp/software/cl-cairo2-20160531-git/tutorial/cairo-samples.lisp
 
-(defparameter *scenes* '(disco 2d-plot fractals))
-(defparameter *scene* (nth 2 *scenes*))
+(defparameter *scenes* '(disco 2d-plot fractals algo-fractals))
+(defparameter *scene* (nth 3 *scenes*))
 (defparameter *animate* t)
 (defparameter *sleep* 0.1)
 (defparameter *line-alpha* 1.0)
@@ -127,7 +127,8 @@
   (ecase *scene*
     (disco (draw-scene-disco))
     (2d-plot (draw-scene-2d-plot))
-    (fractals (draw-scene-fractals))))
+    (fractals (draw-scene-fractals))
+    (algo-fractals (draw-scene-algo-fractals))))
 
 (defun draw-bg-disco ()
   (cairo:set-source-rgb 0 0 0)
@@ -168,6 +169,20 @@
                      (/ (- y (/ h 2)) 30))
           (cairo:set-source-rgb r g b)
           (cairo:rectangle x y *2d-plot-point-size* *2d-plot-point-size*)
+          (cairo:fill-path))))))
+
+(defun draw-scene-algo-fractals ()
+  (cairo:set-source-rgb 0.2 0.2 0.2)
+  (cairo:paint)
+  (let* ((w (cairo:width cairo:*context*))
+         (h (cairo:height cairo:*context*))
+         (a (/ w h)))
+    (loop for px from 0 upto w by *2d-plot-point-size* do
+      (loop for py from 0 upto h by *2d-plot-point-size* do
+        (multiple-value-bind (r g b)
+            (mandelbrot px py w h a)
+          (cairo:set-source-rgb r g b)
+          (cairo:rectangle px py *2d-plot-point-size* *2d-plot-point-size*)
           (cairo:fill-path))))))
 
 (defun update ()

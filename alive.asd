@@ -8,6 +8,7 @@
   :serial t
   :depends-on (#:cl-cairo2 #:cl-cairo2-xlib #:bordeaux-threads)
   :components ((:file "package")
+               (:file "utils")
                (:file "pos")
                (:file "object")
                (:file "2d-plots")
