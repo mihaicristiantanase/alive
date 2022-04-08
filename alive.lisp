@@ -158,7 +158,7 @@
 
 (defun draw-scene-algo-fractals ()
   (draw-scene-pixels
-   (mandelbrot x y w h a)))
+   (mandelbrot x y w h a :zoom 1.3)))
 
 (defun update ()
   (print-fps)
