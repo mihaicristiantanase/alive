@@ -45,19 +45,14 @@
             0.0)))
 
 (defun mandelbrot (px py w h a &key (max-iteration 100))
-  (let ((x0 (* a (scale px 0 w -2.0 0.47)))
-        (y0 (scale py 0 h -1.12 1.12) )
-        (x 0)
-        (y 0)
-        (tmp))
+  (let* ((x0 (* a (scale px 0 w -2.0 0.47)))
+         (y0 (scale py 0 h -1.12 1.12))
+         (c (complex x0 y0))
+         (z (complex 0)))
     (let ((solution-iteration
             (loop for iteration from 0 upto max-iteration
-                  while (<= (+ (* x x) (* y y)) (* 2 2)) do
-                    (setf tmp (+ (* x x) (- (* y y)) x0))
-                    (setf y (+ (* 2 x y) y0))
-                    (setf x tmp)
+                  while (<= (abs z) 2) do
+                    (setf z (+ (* z z) c))
                   finally (return (1- iteration)))))
-      (values
-       (/ solution-iteration max-iteration)
-       (/ solution-iteration max-iteration)
-       (/ solution-iteration max-iteration)))))
+      (let ((r (/ solution-iteration max-iteration)))
+        (values r r r)))))
