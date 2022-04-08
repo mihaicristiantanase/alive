@@ -186,6 +186,7 @@
           (cairo:fill-path))))))
 
 (defun update ()
+  (format t "~&~a update~%" (local-time:now))
   (incf *osciallation-factor* 0.1)
   (incf *beam-split* 0.01)
   (incf *holes-factor* 0.02)
