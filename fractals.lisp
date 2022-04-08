@@ -5,6 +5,7 @@
 (defparameter *max* (* *mandelbrot-max* (sqrt 2)))
 (defparameter *2max* (* 2 *max*))
 (defparameter *mandelbrot-iterations* 1)
+(defparameter *mandelbrot-zoom* 1)
 
 (defun mandelbrot-try-base (x y &key constant iterations)
   (let ((c (complex x y))
@@ -45,9 +46,9 @@
             (* s (/ (+ i *max*) *2max*))
             0.0)))
 
-(defun mandelbrot (x y w h a &key (max-iteration 100) (zoom 1.0))
-  (let* ((x0 (* (/ 1 zoom) a (scale x 0 w -2.0 0.47)))
-         (y0 (* (/ 1 zoom) (scale y 0 h -1.12 1.12)))
+(defun mandelbrot (x y w h a &key (max-iteration 100) (offset (make-instance 'pos)) (zoom 1.0))
+  (let* ((x0 (* (/ 1 zoom) a (+ (scale x 0 w -2.0 0.47) (x offset))))
+         (y0 (* (/ 1 zoom) (+ (scale y 0 h -1.12 1.12) (y offset))))
          (c (complex x0 y0))
          (z (complex 0)))
     (let ((solution-iteration
@@ -60,3 +61,9 @@
 
 (defun mandelbrot-iterated (x y w h a)
   (mandelbrot x y w h a :max-iteration *mandelbrot-iterations* :zoom 0.7))
+
+(defun mandelbrot-zoomed (x y w h a)
+  (mandelbrot x y w h a
+              :offset (make-instance 'pos :x (* *mandelbrot-zoom* -0.913350)
+                                          :y (* *mandelbrot-zoom* -0.00396))
+              :zoom *mandelbrot-zoom*))
