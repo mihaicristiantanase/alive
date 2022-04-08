@@ -9,6 +9,7 @@
   :depends-on (#:cl-cairo2 #:cl-cairo2-xlib #:bordeaux-threads #:local-time)
   :components ((:file "package")
                (:file "utils")
+               (:file "fps")
                (:file "pos")
                (:file "object")
                (:file "2d-plots")

@@ -6,7 +6,6 @@
 (defparameter *scenes* '(disco 2d-plot fractals algo-fractals))
 (defparameter *scene* (nth 3 *scenes*))
 (defparameter *animate* t)
-(defparameter *sleep* 0.1)
 (defparameter *line-alpha* 1.0)
 (defparameter *objects* nil)
 (defparameter *2d-plot-point-size* 1)
@@ -176,7 +175,8 @@
    (mandelbrot px py w h a)))
 
 (defun update ()
-  (format t "~&~a update~%" (local-time:now))
+  (print-fps)
+
   (incf *osciallation-factor* 0.1)
   (incf *beam-split* 0.01)
   (incf *holes-factor* 0.02)
