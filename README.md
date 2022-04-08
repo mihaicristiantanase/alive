@@ -45,6 +45,10 @@ https://user-images.githubusercontent.com/7289591/160776317-96865f1c-4467-49f2-b
 
 <img width="348" alt="mandelbrot-try4-with-speed" src="https://user-images.githubusercontent.com/7289591/160790516-3d4a02cc-4bd5-4572-818d-9f7122b8725a.png">
 
+* Mandelbrot (black and white)
+
+![mandelbrot-black-n-white](https://user-images.githubusercontent.com/7289591/162480052-011d917e-9d62-4a8d-b7ce-563d9ff87798.png)
+
 ## License
 
 MIT
