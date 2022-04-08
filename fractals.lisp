@@ -4,6 +4,7 @@
 (defparameter *mandelbrot-max* 1e6)
 (defparameter *max* (* *mandelbrot-max* (sqrt 2)))
 (defparameter *2max* (* 2 *max*))
+(defparameter *mandelbrot-iterations* 1)
 
 (defun mandelbrot-try-base (x y &key constant iterations)
   (let ((c (complex x y))
@@ -56,3 +57,6 @@
                   finally (return (1- iteration)))))
       (let ((r (/ solution-iteration max-iteration)))
         (values r r r)))))
+
+(defun mandelbrot-iterated (x y w h a)
+  (mandelbrot x y w h a :max-iteration *mandelbrot-iterations* :zoom 0.7))

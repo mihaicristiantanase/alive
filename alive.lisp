@@ -11,6 +11,7 @@
 (defparameter *2d-plot-point-size* 1)
 (defparameter *2d-plot-f* *2dp-hot-sun*)
 (defparameter *fractal-f* #'mandelbrot-try4)
+(defparameter *fractal-algo-f* #'mandelbrot-iterated)
 (defparameter *save-frames* nil)
 (defparameter *img-idx* 0)
 
@@ -158,7 +159,7 @@
 
 (defun draw-scene-algo-fractals ()
   (draw-scene-pixels
-   (mandelbrot x y w h a :zoom 1.3)))
+   (funcall *fractal-algo-f* x y w h a)))
 
 (defun update ()
   (print-fps)
@@ -171,6 +172,7 @@
   (incf *ripple-factor* 0.05)
   (incf *sun-factor* 0.005)
   (incf *mandelbrot-factor* 0.3)
+  (incf *mandelbrot-iterations*)
 
   (dolist (o *objects*)
     (adjust-pos (o-pos o) 'randomly)))
@@ -203,7 +205,8 @@
   (setf *repell-factor* 0.0)
   (setf *ripple-factor* 2.0)
   (setf *sun-factor* 0.0)
-  (setf *mandelbrot-factor* -80))
+  (setf *mandelbrot-factor* -80)
+  (setf *mandelbrot-iterations* 1))
 
 (defun draw-loop ()
   (init)
