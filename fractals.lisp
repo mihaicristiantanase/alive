@@ -44,9 +44,9 @@
             (* s (/ (+ i *max*) *2max*))
             0.0)))
 
-(defun mandelbrot (px py w h a &key (max-iteration 100))
-  (let* ((x0 (* a (scale px 0 w -2.0 0.47)))
-         (y0 (scale py 0 h -1.12 1.12))
+(defun mandelbrot (x y w h a &key (max-iteration 100))
+  (let* ((x0 (* a (scale x 0 w -2.0 0.47)))
+         (y0 (scale y 0 h -1.12 1.12))
          (c (complex x0 y0))
          (z (complex 0)))
     (let ((solution-iteration

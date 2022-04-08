@@ -144,35 +144,21 @@
     (draw-object o)))
 
 (defun draw-scene-2d-plot ()
-  (cairo:set-source-rgb 0.3 0.3 0.3)
-  (cairo:paint)
-  (let ((w (cairo:width cairo:*context*))
-        (h (cairo:height cairo:*context*)))
-    (loop for x from 0 upto w by *2d-plot-point-size* do
-      (loop for y from 0 upto h by *2d-plot-point-size* do
-        (multiple-value-bind (r g b) (funcall *2d-plot-f* x y (list (cons 'w w) (cons 'h h)))
-          (cairo:set-source-rgb r g b)
-          (cairo:rectangle x y *2d-plot-point-size* *2d-plot-point-size*)
-          (cairo:fill-path))))))
+  (draw-scene-pixels
+   (funcall *2d-plot-f*
+            x
+            y
+            (list (cons 'w w) (cons 'h h)))))
 
 (defun draw-scene-fractals ()
-  (cairo:set-source-rgb 0.2 0.2 0.2)
-  (cairo:paint)
-  (let ((w (cairo:width cairo:*context*))
-        (h (cairo:height cairo:*context*)))
-    (loop for x from 0 upto w by *2d-plot-point-size* do
-      (loop for y from 0 upto h by *2d-plot-point-size* do
-        (multiple-value-bind (r g b)
-            (funcall *fractal-f*
-                     (/ (- x (/ w 2)) 30)
-                     (/ (- y (/ h 2)) 30))
-          (cairo:set-source-rgb r g b)
-          (cairo:rectangle x y *2d-plot-point-size* *2d-plot-point-size*)
-          (cairo:fill-path))))))
+  (draw-scene-pixels
+   (funcall *fractal-f*
+            (/ (- x (/ w 2)) 30)
+            (/ (- y (/ h 2)) 30))))
 
 (defun draw-scene-algo-fractals ()
   (draw-scene-pixels
-   (mandelbrot px py w h a)))
+   (mandelbrot x y w h a)))
 
 (defun update ()
   (print-fps)
