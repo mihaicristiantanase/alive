@@ -64,6 +64,6 @@
 
 (defun mandelbrot-zoomed (x y w h a)
   (mandelbrot x y w h a
-              :offset (make-instance 'pos :x (* *mandelbrot-zoom* -0.913350)
+              :offset (make-instance 'pos :x (* *mandelbrot-zoom* -0.913369)
                                           :y (* *mandelbrot-zoom* -0.00396))
               :zoom *mandelbrot-zoom*))
