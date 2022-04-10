@@ -7,6 +7,33 @@
         (- dst-max dst-min))
      dst-min))
 
+;; split by 6
+(defmacro split-by-6 (w h)
+  `(list
+    (cons (cons 0 (floor (* ,w 0.33))) (cons 0 (floor (* ,h 0.5))))
+    (cons (cons (floor (* ,w 0.33)) (floor (* ,w 0.67))) (cons 0 (floor (* ,h 0.5))))
+    (cons (cons (floor (* ,w 0.67)) ,w) (cons 0 (floor (* ,h 0.5))))
+    (cons (cons 0 (floor (* ,w 0.33))) (cons (floor (* ,h 0.5)) ,h))
+    (cons (cons (floor (* ,w 0.33)) (floor (* ,w 0.67))) (cons (floor (* ,h 0.5)) ,h))
+    (cons (cons (floor (* ,w 0.67)) ,w) (cons (floor (* ,h 0.5)) ,h))))
+
+;; split by 4
+(defmacro split-by-4 (w h)
+  `(list (cons (cons 0 (floor (* ,w 0.5))) (cons 0 (floor (* ,h 0.5))))
+         (cons (cons (floor (* ,w 0.5)) ,w) (cons 0 (floor (* ,h 0.5))))
+         (cons (cons 0 (floor (* ,w 0.5))) (cons (floor (* ,h 0.5)) ,h))
+         (cons (cons (floor (* ,w 0.5)) ,w) (cons (floor (* ,h 0.5)) ,h))))
+
+;; split by 2
+(defmacro split-by-2 (w h)
+  `(list (cons (cons 0 (floor (* ,w 0.5))) (cons 0 ,h))
+         (cons (cons (floor (* ,w 0.5)) ,w) (cons 0 ,h))))
+
+;; split by n
+(defmacro split-by-n (w h n)
+  ;; TODO
+  )
+
 (defmacro draw-scene-pixels (&rest body)
   `(progn
      (cairo:set-source-rgb 0.2 0.2 0.2)

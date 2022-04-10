@@ -3,8 +3,8 @@
 ; examples:
 ; ~/quicklisp/dists/quicklisp/software/cl-cairo2-20160531-git/tutorial/cairo-samples.lisp
 
-(defparameter *scenes* '(disco 2d-plot fractals algo-fractals))
-(defparameter *scene* (nth 3 *scenes*))
+(defparameter *scenes* '(disco 2d-plot fractals algo-fractals split-screen))
+(defparameter *scene* (nth 4 *scenes*))
 (defparameter *animate* t)
 (defparameter *line-alpha* 1.0)
 (defparameter *objects* nil)
@@ -14,12 +14,16 @@
 (defparameter *fractal-algo-f* #'mandelbrot-zoomed)
 (defparameter *save-frames* nil)
 (defparameter *img-idx* 0)
+(defparameter *color-palette* (generate-color-palette))
 
 (defun rand-interval (left right)
   (+ (random (1+ (- right left))) left))
   
 (defun rand-col ()
   (random 1.0))
+
+(defun generate-color-palette ()
+  (loop for i below 16 collect (list (rand-col) (rand-col) (rand-col))))
 
 (defun draw-checkered-board (w h)
   (cairo:set-line-width 10.0)
@@ -128,7 +132,8 @@
     (disco (draw-scene-disco))
     (2d-plot (draw-scene-2d-plot))
     (fractals (draw-scene-fractals))
-    (algo-fractals (draw-scene-algo-fractals))))
+    (algo-fractals (draw-scene-algo-fractals))
+    (split-screen (draw-scene-split-screen))))
 
 (defun draw-bg-disco ()
   (cairo:set-source-rgb 0 0 0)
@@ -160,6 +165,23 @@
 (defun draw-scene-algo-fractals ()
   (draw-scene-pixels
    (funcall *fractal-algo-f* x y w h a)))
+
+(defun draw-scene-split-screen ()
+  (cairo:set-source-rgb 0 0 0)
+  (cairo:paint)
+  (let ((w_ (cairo:width cairo:*context*))
+        (h_ (cairo:height cairo:*context*)))
+    (loop for area in (split-by-6 w_ h_)
+          for idx from 0 do
+            (let ((x0 (caar area))
+                  (x1 (cdar area))
+                  (y0 (cadr area))
+                  (y1 (cddr area)))
+              (cairo:set-source-rgb (nth 0 (nth idx *color-palette*))
+                                    (nth 1 (nth idx *color-palette*))
+                                    (nth 2 (nth idx *color-palette*)))
+              (cairo:rectangle x0 y0 (- x1 x0) (- y1 y0))
+              (cairo:fill-path)))))
 
 (defun update ()
   (print-fps)
