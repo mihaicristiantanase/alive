@@ -1,5 +1,16 @@
 (in-package #:alive)
 
+;; Colors
+
+(defun rand-interval (left right)
+  (+ (random (1+ (- right left))) left))
+
+(defun rand-col ()
+  (random 1.0))
+
+(defun generate-color-palette ()
+  (loop for i below 16 collect (list (rand-col) (rand-col) (rand-col))))
+
 ;;; Pixels Pixels Pixels
 
 (defun scale (a in-min in-max dst-min dst-max)
@@ -32,6 +43,10 @@
 ;; split by n
 (defmacro split-by-n (w h n)
   ;; TODO
+  (cond
+    ((<= n 1) (values 1 1))
+    ((<= n 2) (values (/ 1 2) 1))
+    ((<= n 3) (values (/ 1 3) 1)))
   )
 
 (defmacro draw-scene-pixels (&rest body)

@@ -16,15 +16,6 @@
 (defparameter *img-idx* 0)
 (defparameter *color-palette* (generate-color-palette))
 
-(defun rand-interval (left right)
-  (+ (random (1+ (- right left))) left))
-  
-(defun rand-col ()
-  (random 1.0))
-
-(defun generate-color-palette ()
-  (loop for i below 16 collect (list (rand-col) (rand-col) (rand-col))))
-
 (defun draw-checkered-board (w h)
   (cairo:set-line-width 10.0)
   (let ((r (rand-col))
