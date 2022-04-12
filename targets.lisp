@@ -1,15 +1,15 @@
 (in-package #:alive)
 
 (defclass target ()
-  ((start :accessor start)
-   (stop :accessor stop :initarg :stop)
+  ((start :accessor start :initform 0)
+   (stop :accessor stop :initarg :stop :initform 0)
    (steps :accessor steps :initarg :steps :initform 20)
    (current-step :accessor current-step :initform 0)
    (interpolator :accessor interpolator :initform #'(lambda (x) x))))
 
 (defclass reach-target ()
-  ((val :accessor val :initarg :val)
-   (tgt :accessor tgt :initarg :tgt)))
+  ((val :accessor val :initarg :val :initform 0)
+   (tgt :accessor tgt :initform (make-instance 'target))))
 
 (defmethod new-target? ((tgt target))
   (zerop (current-step tgt)))
@@ -26,7 +26,8 @@
 
 (defmethod update-target ((rt reach-target))
   (let ((tgt (tgt rt)))
-    (when (new-target? tgt)
-      (setf (start tgt) (val rt)))
-    (target-goto-next-step tgt)
-    (setf (val rt) (target-current tgt))))
+    (when tgt
+      (when (new-target? tgt)
+        (setf (start tgt) (val rt)))
+      (target-goto-next-step tgt)
+      (setf (val rt) (target-current tgt)))))
