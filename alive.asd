@@ -8,6 +8,7 @@
   :serial t
   :depends-on (#:cl-cairo2 #:cl-cairo2-xlib #:bordeaux-threads #:local-time)
   :components ((:file "package")
+               (:file "targets")
                (:file "utils")
                (:file "fps")
                (:file "pos")
