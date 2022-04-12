@@ -4,7 +4,7 @@
 ; ~/quicklisp/dists/quicklisp/software/cl-cairo2-20160531-git/tutorial/cairo-samples.lisp
 
 (defparameter *scenes* '(disco 2d-plot fractals algo-fractals split-screen))
-(defparameter *scene* (nth 4 *scenes*))
+(defparameter *scene* (nth 3 *scenes*))
 (defparameter *animate* t)
 (defparameter *line-alpha* 1.0)
 (defparameter *objects* nil)
