@@ -186,7 +186,7 @@
   (incf *sun-factor* 0.005)
   (incf *mandelbrot-factor* 0.3)
   (incf *mandelbrot-iterations*)
-  (incf *mandelbrot-zoom* 10000.9)
+  (incf *mandelbrot-zoom* 0.1)
   (update-target *mandelbrot-xoffset*)
   (update-target *mandelbrot-yoffset*)
 
@@ -226,8 +226,8 @@
   (setf *mandelbrot-zoom* 1)
   (setf *mandelbrot-xoffset* (make-instance 'reach-target))
   (setf *mandelbrot-yoffset* (make-instance 'reach-target))
-  (setf (tgt *mandelbrot-xoffset*) (make-instance 'target :stop -0.367479 :steps 200))
-  (setf (tgt *mandelbrot-yoffset*) (make-instance 'target :stop -0.251160 :steps 200)))
+  (setf (tgt *mandelbrot-xoffset*) (make-instance 'target :stop -0.367479 :steps 20))
+  (setf (tgt *mandelbrot-yoffset*) (make-instance 'target :stop -0.251160 :steps 20)))
 
 (defun draw-loop ()
   (init)
