@@ -127,7 +127,7 @@
     (split-screen (draw-scene-split-screen)))
   ;; display FPS
   (cairo:set-source-rgb 1.0 0.0 1.0)
-  (cairo:move-to 0 350)
+  (cairo:move-to 0 (- (cairo:height cairo:*context*) 5))
   (cairo:select-font-face "Arial" :normal :normal)
   (cairo:set-font-size 14)
   (cairo:show-text (format nil "~a" *fps-latest-value*)))
