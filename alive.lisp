@@ -124,7 +124,13 @@
     (2d-plot (draw-scene-2d-plot))
     (fractals (draw-scene-fractals))
     (algo-fractals (draw-scene-algo-fractals))
-    (split-screen (draw-scene-split-screen))))
+    (split-screen (draw-scene-split-screen)))
+  ;; display FPS
+  (cairo:set-source-rgb 1.0 0.0 1.0)
+  (cairo:move-to 0 350)
+  (cairo:select-font-face "Arial" :normal :normal)
+  (cairo:set-font-size 14)
+  (cairo:show-text (format nil "~a" *fps-latest-value*)))
 
 (defun draw-bg-disco ()
   (cairo:set-source-rgb 0 0 0)
@@ -175,7 +181,7 @@
               (cairo:fill-path)))))
 
 (defun update ()
-  (print-fps)
+  (update-fps)
 
   (incf *osciallation-factor* 0.1)
   (incf *beam-split* 0.01)
