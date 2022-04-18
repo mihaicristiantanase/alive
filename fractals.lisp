@@ -6,6 +6,7 @@
 (defparameter *2max* (* 2 *max*))
 (defparameter *mandelbrot-iterations* 1)
 (defparameter *mandelbrot-zoom* 1)
+(defparameter *mandelbrot-zoom-step* 0)
 (defparameter *mandelbrot-xoffset* (make-instance 'reach-target))
 (defparameter *mandelbrot-yoffset* (make-instance 'reach-target))
 
