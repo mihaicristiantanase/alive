@@ -212,11 +212,27 @@
     (cairo:paint))
   (incf *img-idx*))
 
+(defparameter *keycodes*
+  '((a . 8)
+    (b . 9)
+    (c . 10)
+    (q . 20)
+    (w . 21)
+    (e . 22)))
+
+(defun handle-keyevent (code state pressed)
+  (format t "~:@(~a~) key=~a state=~a~%"
+          (if pressed "pressed " "released")
+          (car (rassoc code *keycodes*))
+          state))
+
 (defun setup ()
   (setf cairo:*context*
-        (cairo:create-xlib-image-context 700 360
-                                         :window-name "Live Drawing"
-                                         :background-color cl-colors:+black+)))
+        (cairo:create-xlib-image-context
+         700 360
+         :window-name "Live Drawing"
+         :background-color cl-colors:+black+
+         :keyevent-callback #'(lambda (c s p) (handle-keyevent c s p)))))
 
 (defun init ()
   (setf *img-idx* 0)
