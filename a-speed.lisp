@@ -1,7 +1,7 @@
 (in-package #:alive)
 
 (defclass a-speed ()
-  ((v :accessor v :initarg :v :initform 0)
+  ((v :accessor speed-v :initarg :v :initform 0)
    (a :accessor a :initarg :a :initform 0)
    (vmin :accessor vmin :initarg :vmin :initform nil)
    (vmax :accessor vmax :initarg :vmax :initform nil)))
