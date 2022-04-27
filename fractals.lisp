@@ -5,8 +5,7 @@
 (defparameter *max* (* *mandelbrot-max* (sqrt 2)))
 (defparameter *2max* (* 2 *max*))
 (defparameter *mandelbrot-iterations* 1)
-(defparameter *mandelbrot-zoom* 1)
-(defparameter *mandelbrot-zoom-step* 0)
+(defparameter *mandelbrot-zoom* (make-instance 'a-speed :v 1 :vmin 0.2))
 (defparameter *mandelbrot-xoffset* (make-instance 'reach-target))
 (defparameter *mandelbrot-yoffset* (make-instance 'reach-target))
 
@@ -66,7 +65,8 @@
   (mandelbrot x y w h a :max-iteration *mandelbrot-iterations* :zoom 0.7))
 
 (defun mandelbrot-zoomed (x y w h a)
-  (mandelbrot x y w h a
-              :offset (make-instance 'pos :x (* *mandelbrot-zoom* (val *mandelbrot-xoffset*))
-                                          :y (* *mandelbrot-zoom* (val *mandelbrot-yoffset*)))
-              :zoom *mandelbrot-zoom*))
+  (let ((zoom (slot-value *mandelbrot-zoom* 'v)))
+    (mandelbrot x y w h a
+                :offset (make-instance 'pos :x (* zoom (val *mandelbrot-xoffset*))
+                                            :y (* zoom (val *mandelbrot-yoffset*)))
+                :zoom zoom)))

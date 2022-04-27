@@ -192,8 +192,7 @@
   (incf *sun-factor* 0.005)
   (incf *mandelbrot-factor* 0.3)
   (incf *mandelbrot-iterations*)
-  (incf *mandelbrot-zoom* *mandelbrot-zoom-step*)
-  (when (<= *mandelbrot-zoom* 0.1) (setf *mandelbrot-zoom* 0.1))
+  (speed-update *mandelbrot-zoom*)
   (update-target *mandelbrot-xoffset*)
   (update-target *mandelbrot-yoffset*)
 
@@ -232,7 +231,7 @@
           state)
 
   (let ((step 0.1)
-        (zoom-step 0.1))
+        (zoom-step 0.01))
     (case (car (rassoc code *keycodes*))
       (a (setf (tgt *mandelbrot-xoffset*)
                (make-instance 'target :stop (- (stop (tgt *mandelbrot-xoffset*)) step)
@@ -246,8 +245,8 @@
       (s (setf (tgt *mandelbrot-yoffset*)
                (make-instance 'target :stop (+ (stop (tgt *mandelbrot-yoffset*)) step)
                                       :steps 20)))
-      (q (incf *mandelbrot-zoom-step* zoom-step))
-      (e (incf *mandelbrot-zoom-step* (- zoom-step))))))
+      (q (speed-inc-a *mandelbrot-zoom* zoom-step))
+      (e (speed-inc-a *mandelbrot-zoom* (- zoom-step))))))
 
 (defun setup ()
   (setf cairo:*context*
@@ -268,7 +267,7 @@
   (setf *sun-factor* 0.0)
   (setf *mandelbrot-factor* -80)
   (setf *mandelbrot-iterations* 1)
-  (setf *mandelbrot-zoom* 1)
+  (setf *mandelbrot-zoom* (make-instance 'a-speed :v 1 :vmin 0.2))
   (setf *mandelbrot-xoffset* (make-instance 'reach-target))
   (setf *mandelbrot-yoffset* (make-instance 'reach-target)))
 
