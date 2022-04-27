@@ -67,7 +67,7 @@
   (mandelbrot x y w h a :max-iteration *mandelbrot-iterations* :zoom 0.7))
 
 (defun mandelbrot-zoomed (x y w h a)
-  (let ((zoom (slot-value *mandelbrot-zoom* 'v)))
+  (let ((zoom (speed-v *mandelbrot-zoom*)))
     (mandelbrot x y w h a
                 :offset (make-instance 'pos :x (* zoom (speed-v *mandelbrot-x*))
                                             :y (* zoom (speed-v *mandelbrot-y*)))
