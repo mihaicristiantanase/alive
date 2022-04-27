@@ -222,10 +222,15 @@
     (e . 22)))
 
 (defun handle-keyevent (code state pressed)
+  ;; handle only pressed keys
+  (unless pressed
+    (return-from handle-keyevent))
+
   (format t "~:@(~a~) key=~a state=~a~%"
           (if pressed "pressed " "released")
           (car (rassoc code *keycodes*))
           state)
+
   (let ((step 0.1)
         (zoom-step 0.1))
     (case (car (rassoc code *keycodes*))
