@@ -114,6 +114,16 @@
   (cairo:line-to x1 y1)
   (cairo:stroke))
 
+(defun draw-text (text &key
+                         (size 13)
+                         (color '(1.0 0.0 1.0))
+                         (pos (make-instance 'pos :x 0 :y 50)))
+  (cairo:set-source-rgb (nth 0 color) (nth 1 color) (nth 2 color))
+  (cairo:move-to (x pos) (y pos))
+  (cairo:select-font-face "Arial" :normal :normal)
+  (cairo:set-font-size size)
+  (cairo:show-text text))
+
 (defun continue? ()
   *animate*)
 
@@ -125,12 +135,20 @@
     (fractals (draw-scene-fractals))
     (algo-fractals (draw-scene-algo-fractals))
     (split-screen (draw-scene-split-screen)))
-  ;; display FPS
-  (cairo:set-source-rgb 1.0 0.0 1.0)
-  (cairo:move-to 0 (- (cairo:height cairo:*context*) 5))
-  (cairo:select-font-face "Arial" :normal :normal)
-  (cairo:set-font-size 14)
-  (cairo:show-text (format nil "~a" *fps-latest-value*)))
+
+  ;; display HUD
+  (let ((y 5) (text-height 15))
+    (draw-text (format nil "~a" *fps-latest-value*)
+               :pos (make-instance 'pos :x 0 :y (- (cairo:height cairo:*context*) y)))
+    (incf y text-height)
+    (draw-text (format nil "y: ~a" (speed-v *mandelbrot-y*))
+               :pos (make-instance 'pos :x 0 :y (- (cairo:height cairo:*context*) y)))
+    (incf y text-height)
+    (draw-text (format nil "x: ~a" (speed-v *mandelbrot-x*))
+               :pos (make-instance 'pos :x 0 :y (- (cairo:height cairo:*context*) y)))
+    (incf y text-height)
+    (draw-text (format nil "zoom: ~a" (speed-v *mandelbrot-zoom*))
+               :pos (make-instance 'pos :x 0 :y (- (cairo:height cairo:*context*) y)))))
 
 (defun draw-bg-disco ()
   (cairo:set-source-rgb 0 0 0)
