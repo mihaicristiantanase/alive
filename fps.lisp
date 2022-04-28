@@ -1,10 +1,11 @@
 (in-package #:alive)
 
-(defparameter *sleep* 0.1)
+(progn
+  (defparameter *sleep* 0.02)
+  (defparameter *fps-max* (/ 1 *sleep*)))
 (defparameter *fps-latest-value* 0)
 (defparameter *fps-last-update* nil)
 (defparameter *fps-min-diff* 0.0001)
-(defparameter *fps-max* (/ 1 *sleep*))
 (defparameter *fps-acc* '())
 (defparameter *fps-acc-length* 3)
 
